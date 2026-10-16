@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hogwarts Acceptance Letter</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Tangerine:wght@700&family=IM+Fell+English&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0d0b18;
+      background-image: radial-gradient(circle, #1a162b 0%, #08060e 100%);
+      font-family: 'IM Fell English', Georgia, serif;
+      color: #2b1d0c;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+      overflow-x: hidden;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 480px;
+      perspective: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Envelope styling */
+    .envelope {
+      width: 100%;
+      height: 280px;
+      background: #e2d2b4;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
+      border-radius: 8px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      border: 1px solid #c4b08b;
+    }
+
+    .envelope-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: #4a3525;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .envelope-subtitle {
+      font-size: 0.85rem;
+      color: #7a634e;
+      font-style: italic;
+      margin-top: 5px;
+    }
+
+    /* Wax Seal */
+    .wax-seal {
+      width: 75px;
+      height: 75px;
+      background: radial-gradient(circle at 30% 30%, #a81c1c, #5e0a0a);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px ridge #801010;
+      transition: transform 0.3s ease;
+    }
+
+    .wax-seal span {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #e2b04f;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .click-prompt {
+      position: absolute;
+      bottom: 15px;
+      font-size: 0.8rem;
+      color: #6e5845;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Letter styling */
+    .letter-card {
+      width: 100%;
+      background: #f4e8c1;
+      background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
+      background-size: 20px 20px;
+      border: 1px solid #d3c092;
+      border-radius: 6px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: none;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .letter-card.open {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .crest {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .crest-icon {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #3b2816;
+      border: 2px solid #3b2816;
+      width: 60px;
+      height: 60px;
+      line-height: 56px;
+      border-radius: 50%;
+      margin: 0 auto 5px auto;
+    }
+
+    .school-name {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      text-align: center;
+      color: #2b1d0c;
+    }
+
+    .school-sub {
+      font-size: 0.75rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      color: #5c4531;
+    }
+
+    .recipient {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .letter-body {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    .details-list {
+      background: rgba(0,0,0,0.04);
+      border-left: 3px solid #740001;
+      padding: 10px 15px;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    .details-list li {
+      list-style: none;
+      margin-bottom: 6px;
+    }
+
+    .signature-area {
+      margin-top: 25px;
+      text-align: right;
+    }
+
+    .signature-title {
+      font-size: 0.85rem;
+    }
+
+    .signature-name {
+      font-family: 'Tangerine', cursive;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #1a0f07;
+      line-height: 1;
+      margin-top: 5px;
+    }
+
+    .divider {
+      border: 0;
+      height: 1px;
+      background: #c2b08a;
+      margin: 25px 0;
+    }
+
+    /* RSVP Form */
+    .rsvp-section {
+      margin-top: 20px;
+    }
+
+    .rsvp-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #2b1d0c;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #3b2816;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #b8a479;
+      background: #fdf8eb;
+      border-radius: 4px;
+      font-family: 'IM Fell English', serif;
+      font-size: 0.9rem;
+      color: #2b1d0c;
+    }
+
+    button.submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: #740001;
+      color: #e2b04f;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background 0.2s ease;
+    }
+
+    button.submit-btn:hover {
+      background: #520001;
+    }
+
+    .confirmation-msg {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 12px;
+      border-radius: 4px;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Envelope (Initial View) -->
+  <div class="envelope" id="envelope" onclick="openLetter()">
+    <div class="wax-seal">
+      <span>H</span>
+    </div>
+    <div class="envelope-title">Hogwarts School</div>
+    <div class="envelope-subtitle">Express Delivery</div>
+    <div class="click-prompt">Tap Seal to Open</div>
+  </div>
+
+  <!-- Letter & RSVP (Revealed View) -->
+  <div class="letter-card" id="letterCard">
+    <div class="crest">
+      <div class="crest-icon">H</div>
+      <div class="school-name">Hogwarts</div>
+      <div class="school-sub">School of Witchcraft & Wizardry</div>
+    </div>
+
+    <div class="recipient" id="guestGreeting">Dear Wizard,</div>
+
+    <p class="letter-body">
+      We are pleased to inform you that you have been invited to attend a special gathering at Hogwarts School of Witchcraft and Wizardry.
+    </p>
+
+    <div class="details-list">
+      <ul>
+        <li><strong>Start of Term:</strong> November 14</li>
+        <li><strong>Dress Code:</strong> Character Costume Required</li>
+        <li><strong>Sorting Ceremony:</strong> For all unsorted students upon arrival</li>
+        <li><strong>RSVP Deadline:</strong> October 31</li>
+      </ul>
+    </div>
+
+    <p class="letter-body">
+      Please submit your response via owl post below no later than October 31 to confirm your attendance.
+    </p>
+
+    <div class="signature-area">
+      <div class="signature-title">Yours sincerely,</div>
+      <div class="signature-name">Minerva McGonagall</div>
+      <div class="signature-title">Deputy Headmistress</div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- RSVP Form -->
+    <div class="rsvp-section">
+      <div class="rsvp-title">Owl Post Response</div>
+      
+      <!-- Change the form action link below to your Google Form, Formspree, or Netlify endpoint -->
+      <form id="rsvpForm" onsubmit="submitRSVP(event)">
+        
+        <div class="form-group">
+          <label for="house">Hogwarts House (if already sorted):</label>
+          <select id="house" name="house">
+            <option value="Not yet sorted">Not yet sorted (Needs Sorting Ceremony)</option>
+            <option value="Gryffindor">Gryffindor</option>
+            <option value="Slytherin">Slytherin</option>
+            <option value="Ravenclaw">Ravenclaw</option>
+            <option value="Hufflepuff">Hufflepuff</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="character">Chosen Costume Character:</label>
+          <input type="text" id="character" name="character" placeholder="e.g., Harry Potter, Luna Lovegood" required />
+        </div>
+
+        <div class="form-group">
+          <label for="treat">Magical Food or Drink to Bring:</label>
+          <input type="text" id="treat" name="treat" placeholder="e.g., Butterbeer, Pumpkin Pasties" required />
+        </div>
+
+        <button type="submit" class="submit-btn">Send Owl Response</button>
+      </form>
+
+      <div class="confirmation-msg" id="confirmMsg">
+        ✨ Your response has been dispatched by Owl Post! We await your arrival on November 14.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Extract custom guest name from URL parameter ?name=GuestName
+  const urlParams = new URLSearchParams(window.location.search);
+  const guestName = urlParams.get('name');
+  
+  if (guestName) {
+    document.getElementById('guestGreeting').innerText = `Dear ${guestName},`;
+  } else {
+    document.getElementById('guestGreeting').innerText = `Dear Honored Guest,`;
+  }
+
+  // Animation to open the envelope
+  function openLetter() {
+    const envelope = document.getElementById('envelope');
+    const letterCard = document.getElementById('letterCard');
+
+    envelope.style.transform = 'scale(0.8) rotateX(20deg)';
+    envelope.style.opacity = '0';
+
+    setTimeout(() => {
+      envelope.style.display = 'none';
+      letterCard.classList.add('open');
+    }, 400);
+  }
+
+  // Handle RSVP submission
+  function submitRSVP(e) {
+    e.preventDefault();
+    document.getElementById('rsvpForm').style.display = 'none';
+    document.getElementById('confirmMsg').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
