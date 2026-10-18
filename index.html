@@ -15,9 +15,7 @@
 
     body {
       background-color: #0d0b18;
-      background-image: 
-        radial-gradient(circle at 50% 30%, #1a162b 0%, #08060e 80%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      background-image: radial-gradient(circle, #1a162b 0%, #08060e 100%);
       font-family: 'IM Fell English', Georgia, serif;
       color: #2b1d0c;
       min-height: 100vh;
@@ -25,143 +23,73 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 30px 15px;
+      padding: 20px 10px;
       overflow-x: hidden;
-    }
-
-    /* Floating magical particles background effect */
-    .magic-particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .particle {
-      position: absolute;
-      background: #e2b04f;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: floatUp 8s infinite linear;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0); opacity: 0; }
-      50% { opacity: 0.6; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
 
     /* Container */
     .container {
       width: 100%;
       max-width: 480px;
-      perspective: 1200px;
+      perspective: 1000px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 10;
     }
 
-    /* Envelope styling with solid opaque parchment background */
+    /* Envelope styling */
     .envelope {
       width: 100%;
-      height: 310px;
-      background-color: #e2d2b4;
-      background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px),
-        radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0.04) 100%);
+      height: 280px;
+      background: #e2d2b4;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
       border-radius: 8px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), inset 0 0 25px rgba(139, 107, 71, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
       position: relative;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.6s ease;
-      border: 2px solid #b39b70;
-      overflow: hidden;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      border: 1px solid #c4b08b;
       z-index: 2;
     }
 
-    .envelope::before {
-      content: '';
+    .wax-seal-img {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 140px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.04) 100%);
-      clip-path: polygon(0 0, 50% 60%, 100% 0);
-      border-bottom: 2px solid #b39b70;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+      transition: transform 0.3s ease;
     }
 
-    .envelope:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 15px rgba(226, 176, 79, 0.25);
-    }
-
-    /* Address styling positioned cleanly beneath the wax seal */
-    .envelope-address {
-      margin-top: 65px;
-      text-align: center;
-      z-index: 4;
-      pointer-events: none;
-      padding: 0 15px;
+    .envelope:hover .wax-seal-img {
+      transform: translate(-50%, -50%) scale(1.05);
     }
 
     .envelope-title {
-      font-family: 'IM Fell English', Georgia, serif;
-      font-size: 1.1rem;
-      color: #2b1d0c;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      line-height: 1.3;
-      text-shadow: 1px 1px 1px rgba(255,255,255,0.4);
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      color: #4a3525;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 55px;
+      text-align: center;
+      padding: 0 15px;
     }
 
     .envelope-subtitle {
-      font-family: 'IM Fell English', Georgia, serif;
-      font-size: 0.95rem;
-      color: #3b2816;
+      font-size: 0.8rem;
+      color: #7a634e;
       font-style: italic;
       margin-top: 3px;
-      line-height: 1.3;
-    }
-
-    /* Wax Seal */
-    .wax-seal {
-      width: 74px;
-      height: 74px;
-      background: radial-gradient(circle at 35% 35%, #a81c1c, #5e0a0a);
-      border-radius: 50%;
-      position: absolute;
-      top: 38%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 5px 12px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 3px ridge #801010;
-      transition: transform 0.3s ease;
-      z-index: 5;
-    }
-
-    .envelope:hover .wax-seal {
-      transform: translate(-50%, -50%) scale(1.06);
-    }
-
-    .wax-seal span {
-      font-family: 'Cinzel', serif;
-      font-size: 2.1rem;
-      font-weight: 700;
-      color: #e2b04f;
-      text-shadow: 1px 1px 2px #000;
+      text-align: center;
+      padding: 0 15px;
     }
 
     .click-prompt {
@@ -170,9 +98,8 @@
       font-size: 0.75rem;
       color: #6e5845;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       animation: pulse 1.5s infinite;
-      font-weight: bold;
     }
 
     @keyframes pulse {
@@ -218,7 +145,6 @@
       line-height: 56px;
       border-radius: 50%;
       margin: 0 auto 5px auto;
-      background: #ece0bd;
     }
 
     .school-name {
@@ -302,31 +228,18 @@
       margin-bottom: 15px;
       color: #2b1d0c;
     }
-
-    iframe {
-      width: 100%;
-      border: none;
-      background: transparent;
-      border-radius: 4px;
-    }
   </style>
 </head>
 <body>
-
-<!-- Magical background spark particles -->
-<div class="magic-particles" id="particleContainer"></div>
 
 <div class="container">
   
   <!-- Envelope (Initial View) -->
   <div class="envelope" id="envelope" onclick="openLetter()">
-    <div class="wax-seal">
-      <span>H</span>
-    </div>
-    <div class="envelope-address">
-      <div class="envelope-title">The Cupboard Under the Stairs</div>
-      <div class="envelope-subtitle">4 Privet Drive, Little Whinging, Surrey</div>
-    </div>
+    <!-- Replace src with your direct GitHub raw image URL for your seal -->
+    <img src="hogwarts-wax-seal.png" alt="Wax Seal" class="wax-seal-img">
+    <div class="envelope-title">The Cupboard Under the Stairs</div>
+    <div class="envelope-subtitle">4 Privet Drive, Little Whinging, Surrey</div>
     <div class="click-prompt">Tap Seal to Open</div>
   </div>
 
@@ -370,7 +283,6 @@
     <div class="rsvp-section">
       <div class="rsvp-title">Owl Post Response</div>
       
-      <!-- JotForm IFrame -->
       <iframe
         id="JotFormIFrame-262906998525070"
         title="A Magical Celebration"
@@ -378,7 +290,8 @@
         allowtransparency="true"
         allow="geolocation; microphone; camera; fullscreen; payment"
         src="https://form.jotform.com/nataliet2012/natalies-magical-birthday"
-        style="height:539px;"
+        frameborder="0"
+        style="min-width:100%;max-width:100%;height:539px;border:none;"
         scrolling="no"
       >
       </iframe>
@@ -391,35 +304,12 @@
 </div>
 
 <script>
-  // Generate background magic particles
-  const particleContainer = document.getElementById('particleContainer');
-  for (let i = 0; i < 20; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    const size = Math.random() * 3 + 2;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.animationDuration = `${Math.random() * 6 + 5}s`;
-    particle.style.animationDelay = `${Math.random() * 5}s`;
-    particleContainer.appendChild(particle);
-  }
-
   // Extract custom guest name from URL parameter ?name=GuestName
   const urlParams = new URLSearchParams(window.location.search);
   const guestName = urlParams.get('name');
   
   if (guestName) {
-    const decodedName = decodeURIComponent(guestName);
-    document.getElementById('guestGreeting').innerText = `Dear ${decodedName},`;
-    
-    // Automatically configure JotForm prefill URL if guest name is provided
-    const iframe = document.getElementById('JotFormIFrame-262906998525070');
-    if (iframe) {
-      const currentSrc = iframe.src;
-      const separator = currentSrc.includes('?') ? '&' : '?';
-      iframe.src = `${currentSrc}${separator}name=${encodeURIComponent(decodedName)}`;
-    }
+    document.getElementById('guestGreeting').innerText = `Dear ${guestName},`;
   } else {
     document.getElementById('guestGreeting').innerText = `Dear Honored Guest,`;
   }
